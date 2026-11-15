@@ -4,6 +4,7 @@ import java.util.Scanner;
 
 /**
  * Main application class with interactive menu.
+ * Handles user inputs and prevents crashes from invalid numeric inputs.
  */
 public class AssignmentOne {
     private static Scanner scanner = new Scanner(System.in);
@@ -44,12 +45,15 @@ public class AssignmentOne {
                     running = false;
                     break;
                 default:
-                    System.out.println("Invalid option.");
+                    System.out.println("Invalid option. Please enter 1, 2, 3, or 4.");
             }
         }
         scanner.close();
     }
 
+    /**
+     * Handles the flow of booking an appointment.
+     */
     private static void bookFlow() {
         System.out.print("Enter patient phone: ");
         String phone = scanner.nextLine();
@@ -70,11 +74,22 @@ public class AssignmentOne {
         for (int i = 0; i < doctors.size(); i++) {
             System.out.println((i + 1) + ". " + doctors.get(i).toString());
         }
-        System.out.print("Enter number: ");
-        int docIndex = Integer.parseInt(scanner.nextLine()) - 1;
         
+        System.out.print("Enter number: ");
+        String docInput = scanner.nextLine(); // 先作为字符串读取
+        int docIndex;
+        
+        // 增加异常捕获，防止用户输入字母导致崩溃
+        try {
+            docIndex = Integer.parseInt(docInput) - 1;
+        } catch (NumberFormatException e) {
+            System.out.println("Invalid input. Please enter a number.");
+            return; // 返回主菜单
+        }
+        
+        // 检查数字是否越界
         if (docIndex < 0 || docIndex >= doctors.size()) {
-            System.out.println("Invalid doctor.");
+            System.out.println("Invalid doctor number.");
             return;
         }
         
@@ -87,6 +102,9 @@ public class AssignmentOne {
         System.out.println(manager.bookAppointment(patient, selectedDoc, time));
     }
 
+    /**
+     * Handles the flow of cancelling an appointment.
+     */
     private static void cancelFlow() {
         System.out.print("Enter patient phone: ");
         String phone = scanner.nextLine();
