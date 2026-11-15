@@ -1,9 +1,7 @@
 /**
- * Represents a Specialist doctor.
+ * Represents a Specialist.
  */
 public class Specialist extends HealthProfessional {
-    
-    // Specific attribute for Specialist
     private String specialtyArea;
 
     public Specialist(String id, String name, String gender, String phone, String department, String notes, String specialtyArea) {

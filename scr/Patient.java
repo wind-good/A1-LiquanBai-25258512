@@ -1,6 +1,5 @@
 /**
- * Represents a patient in the hospital system.
- * Equality is based on the patient's phone number to avoid duplicates.
+ * Represents a Patient.
  */
 public class Patient {
     private String name;
@@ -20,9 +19,6 @@ public class Patient {
     public String getGender() { return gender; }
     public String getNotes() { return notes; }
 
-    /**
-     * Overrides equals to check if a patient already exists based on phone number.
-     */
     @Override
     public boolean equals(Object obj) {
         if (this == obj) return true;
@@ -31,9 +27,6 @@ public class Patient {
         return phone.equals(patient.phone);
     }
 
-    /**
-     * Overrides hashCode to be consistent with the equals method.
-     */
     @Override
     public int hashCode() {
         return phone.hashCode();

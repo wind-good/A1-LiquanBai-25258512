@@ -1,9 +1,7 @@
 /**
- * Represents a generic health professional in the clinic.
- * This is an abstract class that provides the foundation for specific roles.
+ * Represents a generic health professional.
  */
 public abstract class HealthProfessional {
-    // Attributes common to all health professionals
     private String id;
     private String name;
     private String gender;
@@ -11,9 +9,6 @@ public abstract class HealthProfessional {
     private String department;
     private String notes;
 
-    /**
-     * Constructs a HealthProfessional with specific details.
-     */
     public HealthProfessional(String id, String name, String gender, String phone, String department, String notes) {
         this.id = id;
         this.name = name;
@@ -23,18 +18,27 @@ public abstract class HealthProfessional {
         this.notes = notes;
     }
 
-    // Getters
     public String getId() { return id; }
     public String getName() { return name; }
+    public String getDepartment() { return department; }
 
-    /**
-     * Abstract method to force subclasses to specify their exact role.
-     */
     public abstract String getSpecificRole();
 
     @Override
     public String toString() {
-        return "Role: " + getSpecificRole() + " | ID: " + id + " | Name: " + name + 
-               " | Dept: " + department + " | Phone: " + phone;
+        return "[" + getSpecificRole() + "] ID: " + id + " | Name: " + name + " | Dept: " + department;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) return true;
+        if (obj == null || getClass() != obj.getClass()) return false;
+        HealthProfessional that = (HealthProfessional) obj;
+        return id.equals(that.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return id.hashCode();
     }
 }
