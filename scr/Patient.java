@@ -1,5 +1,6 @@
 /**
  * Represents a Patient.
+ * Contains personal information and overrides equals/hashCode based on phone number.
  */
 public class Patient {
     private String name;

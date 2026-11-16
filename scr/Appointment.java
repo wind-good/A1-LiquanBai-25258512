@@ -26,3 +26,8 @@ public class Appointment implements Comparable<Appointment> {
         return "Time: " + timeSlot + " | Doctor: " + doctor.getName() + " (" + doctor.getSpecificRole() + ") | " + patient.toString();
     }
 }
+
+
+
+
+

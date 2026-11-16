@@ -4,15 +4,22 @@ import java.util.Scanner;
 
 /**
  * Main application class with interactive menu.
- * Handles user inputs and prevents crashes from invalid numeric inputs.
+ * Handles user inputs, displays the menu, and prevents crashes from invalid inputs.
  */
 public class AssignmentOne {
+    
+    // Global Scanner for user input
     private static Scanner scanner = new Scanner(System.in);
+    // Manager to handle all appointment and patient data
     private static AppointmentManager manager = new AppointmentManager();
+    // List to hold the doctors available in the clinic
     private static List<HealthProfessional> doctors = new ArrayList<>();
 
+    /**
+     * The main method to start the application.
+     */
     public static void main(String[] args) {
-        // Initialize some doctors
+        // Initialize doctors into the system
         doctors.add(new GeneralPractitioner("101", "Dr. Alice", "Female", "0400111222", "General", "None"));
         doctors.add(new GeneralPractitioner("102", "Dr. Bob", "Male", "0400222333", "General", "None"));
         doctors.add(new Specialist("201", "Dr. Charlie", "Male", "0400333444", "Cardiology", "None", "Cardiologist"));
@@ -76,18 +83,16 @@ public class AssignmentOne {
         }
         
         System.out.print("Enter number: ");
-        String docInput = scanner.nextLine(); // 先作为字符串读取
+        String docInput = scanner.nextLine(); 
         int docIndex;
         
-        // 增加异常捕获，防止用户输入字母导致崩溃
         try {
             docIndex = Integer.parseInt(docInput) - 1;
         } catch (NumberFormatException e) {
             System.out.println("Invalid input. Please enter a number.");
-            return; // 返回主菜单
+            return; 
         }
         
-        // 检查数字是否越界
         if (docIndex < 0 || docIndex >= doctors.size()) {
             System.out.println("Invalid doctor number.");
             return;
@@ -96,10 +101,25 @@ public class AssignmentOne {
         HealthProfessional selectedDoc = doctors.get(docIndex);
         System.out.println("Available slots: " + manager.getAvailableSlots(selectedDoc));
 
-        System.out.print("Enter desired time (e.g. 09:30): ");
-        String time = scanner.nextLine();
+        boolean isBooked = false;
+        while (!isBooked) {
+            System.out.print("\nEnter desired time (e.g. 09:30) or type 'back' to return to main menu: ");
+            String time = scanner.nextLine();
 
-        System.out.println(manager.bookAppointment(patient, selectedDoc, time));
+            if (time.equalsIgnoreCase("back")) {
+                System.out.println("Returning to main menu...");
+                return;
+            }
+
+            String result = manager.bookAppointment(patient, selectedDoc, time);
+            System.out.println(result);
+
+            if (result.startsWith("Success")) {
+                isBooked = true;
+            } else {
+                System.out.println("Please try again with a valid available time, or type 'back' to cancel.");
+            }
+        }
     }
 
     /**
