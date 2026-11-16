@@ -1,4 +1,4 @@
-# PROG2004 Evaluation 1 - Hospital Appointment System
+# PROG2004 A1 - Hospital Appointment System
 
 ## Description
 This is an application based on a Java console. The purpose of this program is to simulate a hospital appointment system, allowing patients to make appointments with the doctors that suit them. These contents are one of the parts of the PROG2004 Object-Oriented Programming course. This file is a program manual for users.
